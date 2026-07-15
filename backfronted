@@ -1,0 +1,25 @@
+Client (React.js)
+        │
+        ▼
+Axios HTTP Request
+        │
+        ▼
+Express.js Server
+        │
+        ├── Authentication (JWT)
+        ├── Complaint Routes
+        ├── Admin Routes
+        ├── Agent Routes
+        └── Chat Routes
+        │
+        ▼
+Mongoose Models
+        │
+        ▼
+MongoDB Database
+        │
+        ▼
+JSON Response
+        │
+        ▼
+React Frontend
