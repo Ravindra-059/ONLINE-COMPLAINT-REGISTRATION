@@ -1,0 +1,132 @@
+If you need a **technical architecture description in terms of code/technologies used** for your **Online Complaint Registration and Management System** (instead of the video conferencing part), you can write it like this:
+
+---
+
+### Technical Architecture (Code-Based)
+
+The Online Complaint Registration and Management System follows a **client-server architecture**.
+
+#### Frontend
+
+* **React.js** is used to build the user interface.
+* **Bootstrap** and **Material UI (MUI)** are used for responsive and modern UI design.
+* **Axios** is used to send HTTP requests to the backend through **RESTful APIs**.
+* **React Router** is used for client-side navigation between pages.
+
+```javascript
+// Axios API Request Example
+import axios from "axios";
+
+const getComplaints = async () => {
+  const response = await axios.get("http://localhost:5000/api/complaints");
+  return response.data;
+};
+```
+
+---
+
+#### Backend
+
+* **Node.js** provides the runtime environment.
+* **Express.js** handles server-side logic, routing, and API development.
+* REST APIs are created to perform CRUD (Create, Read, Update, Delete) operations.
+
+```javascript
+// Express Server Example
+const express = require("express");
+const app = express();
+
+app.use(express.json());
+
+app.get("/api/complaints", (req, res) => {
+    res.json({ message: "Complaint List" });
+});
+
+app.listen(5000, () => {
+    console.log("Server running on port 5000");
+});
+```
+
+---
+
+#### Database
+
+* **MongoDB** is used to store user accounts, complaints, complaint status, and feedback.
+* **Mongoose** is used as the Object Data Modeling (ODM) library.
+
+```javascript
+const mongoose = require("mongoose");
+
+mongoose.connect("mongodb://127.0.0.1:27017/ComplaintDB")
+.then(() => console.log("MongoDB Connected"))
+.catch(err => console.log(err));
+```
+
+Example Schema:
+
+```javascript
+const mongoose = require("mongoose");
+
+const ComplaintSchema = new mongoose.Schema({
+    name: String,
+    email: String,
+    category: String,
+    complaint: String,
+    status: {
+        type: String,
+        default: "Pending"
+    }
+});
+
+module.exports = mongoose.model("Complaint", ComplaintSchema);
+```
+
+---
+
+#### REST API Flow
+
+```text
+User
+   │
+   ▼
+React Frontend
+   │
+Axios HTTP Requests
+   │
+   ▼
+Express.js REST API
+   │
+Mongoose
+   │
+   ▼
+MongoDB Database
+```
+
+---
+
+#### Technologies Used
+
+| Layer          | Technology             |
+| -------------- | ---------------------- |
+| Frontend       | React.js               |
+| UI Framework   | Bootstrap, Material UI |
+| HTTP Client    | Axios                  |
+| Backend        | Node.js, Express.js    |
+| Database       | MongoDB                |
+| ODM            | Mongoose               |
+| API            | RESTful APIs           |
+| Authentication | JWT (if implemented)   |
+
+---
+
+### Working Flow
+
+1. The user accesses the React frontend.
+2. Axios sends HTTP requests to the Express backend.
+3. Express processes the request and validates the data.
+4. Mongoose interacts with the MongoDB database.
+5. The database stores or retrieves complaint information.
+6. The backend sends a JSON response back to the frontend.
+7. The frontend updates the UI with the received data.
+
+This architecture provides efficient complaint registration, complaint tracking, user authentication, and complaint management through a scalable and maintainable MERN stack application.
